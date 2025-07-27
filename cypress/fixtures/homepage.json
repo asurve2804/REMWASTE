@@ -1,0 +1,9 @@
+{
+    "homePageHeader": "Welcome, ",
+    "header": "Login",
+    "noDataTextMsg": "No items. Add one!",
+    "firstData" : ["Atul","Arun","Surve"],
+    "textMsgWithData" : "Total items: ",
+    "deleteValue" : "Atul",
+    "updatedValue" : "Alex"
+}
