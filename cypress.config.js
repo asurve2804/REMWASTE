@@ -17,8 +17,8 @@ module.exports = defineConfig({
   defaultCommandTimeout: 6000,
   env: {
     url: "http://localhost:3000/",
-    email: "atul",
-    password: "admin123",
+    email: "",
+    password: "",
   },
   retries: {
     runMode: 1,
@@ -31,10 +31,6 @@ module.exports = defineConfig({
       await preprocessor.addCucumberPreprocessorPlugin(on, config);
 
       on("file:preprocessor", browserify.default(config));
-
-      // on("file:preprocessor", creatBundler({
-      //   plugins: [createEsbuildPlugin(config)]
-      // }));
 
       on("after:spec", (spec, results) => {
         if (results && results.video && results.stats.failures === 0) {
