@@ -17,8 +17,8 @@ module.exports = defineConfig({
   defaultCommandTimeout: 6000,
   env: {
     url: "http://localhost:3000/",
-    email: "",
-    password: "",
+    email: "atul",
+    password: "admin123",
   },
   retries: {
     runMode: 1,
