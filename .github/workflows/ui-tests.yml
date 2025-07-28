@@ -18,11 +18,11 @@ jobs:
       ##########################
 
       - name: Setup frontend
-        working-directory: ./react_app/react-login-crud-demo
+        working-directory: react_app/react-login-crud-demo
         run: npm ci
 
       - name: Start React app
-        working-directory: ./react_app/react-login-crud-demo
+        working-directory: react_app/react-login-crud-demo
         run: npm start
 
       - name: Run Cypress tests
