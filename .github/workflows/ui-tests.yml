@@ -1,0 +1,76 @@
+# .github/workflows/ui-tests.yml
+name: UI + Backend Tests with Coverage
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mongo: # example if your backend uses MongoDB
+        image: mongo
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      ##########################
+      # Backend Test + Coverage
+      ##########################
+
+      - name: Setup backend
+        working-directory: ./server
+        run: npm ci
+
+      - name: Run backend tests with coverage
+        working-directory: ./server
+        run: |
+          npx nyc --reporter=lcov --reporter=text npm test
+
+      - name: Upload backend coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: server/coverage
+
+      ##########################
+      # Frontend Build + Cypress UI Test
+      ##########################
+
+      - name: Setup frontend
+        working-directory: ./client
+        run: npm ci
+
+      - name: Build React app
+        working-directory: ./client
+        run: npm run build
+
+      - name: Start server in background
+        working-directory: ./client
+        run: |
+          npm install -g serve
+          serve -s build -l 3000 &
+          sleep 5  # wait for server
+
+      - name: Run Cypress tests
+        working-directory: ./client
+        run: npm run cypress:run
+
+      - name: Generate Cypress coverage report
+        working-directory: ./client
+        run: npx nyc report --reporter=lcov --reporter=text
+
+      - name: Upload frontend coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage
+          path: client/coverage
