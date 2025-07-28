@@ -1,0 +1,7 @@
+{
+  "header": "Login",
+  "invalidEmail": "abcd",
+  "invalidPassword": "1234",
+  "invalidCred": "Invalid credentials.",
+  "homePageHeader": "Welcome, "
+}
