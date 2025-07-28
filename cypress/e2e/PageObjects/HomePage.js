@@ -17,11 +17,8 @@ class HomePage {
   getListOfAddedValues() {
     return cy.get("li span");
   }
-  getDeleteButton() {
-    return cy.contains("Delete");
-  }
   getEditButton() {
-    return cy.contains("Edit");
+    return cy.contains("Surve").nextAll("Edit");
   }
   getUpdateButton() {
     return cy.contains("Update");

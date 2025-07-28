@@ -68,9 +68,13 @@ When("User deletes one of the item from the list", () => {
   homePage.getListOfAddedValues().each(($e1, list, $index) => {
     const deleteValue = $e1.text();
     if (deleteValue === userData.deleteValue) {
-      homePage.getDeleteButton().click();
+      cy.contains("li span", deleteValue)
+        .parents("li")
+        .find("div.space-x-2 .bg-red-500")
+        .click();
     }
   });
+  cy.log("No record found");
 });
 Then("Deleted item does not not exist and count is updated", () => {
   homePage.getListOfAddedValues().should("not.have.text", userData.deleteValue);
@@ -83,11 +87,15 @@ When("User Edits one of the item from the list", () => {
   homePage.getListOfAddedValues().each(($e1, list, $index) => {
     const editValue = $e1.text();
     if (editValue === userData.deleteValue) {
-      homePage.getEditButton().click();
+      cy.contains("li span", editValue)
+        .parents("li")
+        .find("div.space-x-2 .bg-blue-400")
+        .click();
       homePage.getNewItemTextBox().clear().type(userData.updatedValue);
       homePage.getUpdateButton().click();
     }
   });
+  cy.log("No record found");
 });
 Then("Item is edited with new value and count remaining the same", () => {
   homePage.getListOfAddedValues().each(($e1, list, $index) => {

@@ -4,6 +4,6 @@
     "noDataTextMsg": "No items. Add one!",
     "firstData" : ["Atul","Arun","Surve"],
     "textMsgWithData" : "Total items: ",
-    "deleteValue" : "Atul",
+    "deleteValue" : "Surve",
     "updatedValue" : "Alex"
 }
